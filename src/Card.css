@@ -1,0 +1,64 @@
+/* Card.css */
+    .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2px 16px;
+    background-color: #0336ff;
+   }
+   
+   .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f5ee;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(82, 4, 4, 0.1);
+    margin: 20px auto;
+    box-shadow: 0 50px 100px 0 rgba(212, 30, 30, 0.4);
+   }
+   
+   .card-input {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 20px;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px; */
+   }
+   
+   .card-input label {
+    font-weight: bold;
+   }
+   
+   .card-input input {
+    padding: 5px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+   }
+   
+   .card button {
+    background-color: #0336ff;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+   }
+   
+   .card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #007bff;
+   }
+
+   img {
+    border-radius: 10px 10px 0 0;
+  }
