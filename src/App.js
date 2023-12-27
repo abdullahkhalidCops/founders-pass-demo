@@ -14,17 +14,19 @@ BigNumber.config({ EXPONENTIAL_AT: 1e+9 })
 
 function App() {
   const [userData, setUserData] = useState({
+    currentNetwork: '',
+    currentBalance: '',
     userAddress: '',
-    userBalance: '',
-    totalAllowence: '',
-    tier1PassesOwned: '',
-    tier2PassesOwned: ''
+    // userBalance: '',
+    // totalAllowence: '',
+    // tier1PassesOwned: '',
+    // tier2PassesOwned: ''
   });
   const [quantities, setQuantities] = useState([0, 0]);
   const tier1Price = 250; // Replace with actual price
   const tier2Price = 4500; // Replace with actual price
-  const foundersPassContractAddress = '0xa3E8f107b1E20a8d33b95ee5D9C9Cd0C6c1f88A1'; // Replace with your smart contract address
-  const usdtContractAddress = '0xe8F3FF106BFb124B1b2572CfC32eD56487949947'
+  const foundersPassContractAddress = '0x2Fe777A6886203B1cB05D1f38b7bB17694C4B8E0'; //'0x0027570f438E427eE9F85F9cda5DF1cf47E609Fc'; old address is without flush functionality 
+  const usdtContractAddress = '0x860a925E8f5E7D40501b311D9c8167d824Aa2e44'; //'0x1e2673D6365C8066B577e1CE5F7035FB5D115890'
   const conversionFactor = new BigNumber(10).exponentiatedBy(18);
 
   // let userAddress, userBalance, totalAllowence, tier1PassesOwned, tier2PassesOwned;
@@ -40,21 +42,27 @@ function App() {
 
       const accounts = await provider.listAccounts();
       const userAddress = accounts[0];
+      const currentNetwork = await provider.getNetwork();
+      const currentBalance = await provider.getBalance(userAddress);
       const userBalance = await usdtContract.balanceOf(await signer.getAddress());
       const totalAllowence = await usdtContract.allowance(await signer.getAddress(), foundersPassContractAddress);
       const tier1PassesOwned = await foundersPassContract.balanceOf(await signer.getAddress(), 1);
       const tier2PassesOwned = await foundersPassContract.balanceOf(await signer.getAddress(), 2);
+      console.log("currentNetwork : ", currentNetwork);
+      console.log("currentBalance : ", currentBalance);
       console.log("userAddress : ", userAddress);
       console.log("userBalance : ", userBalance.toString());
       console.log("totalAllowence : ", totalAllowence.toString());
       console.log("tier1PassesOwned : ", tier1PassesOwned.toString());
       console.log("tier2PassesOwned : ", tier2PassesOwned.toString());
       setUserData({
+        currentNetwork: currentNetwork.name,
+        currentBalance: currentBalance.toString(),
         userAddress,
         userBalance: ethers.utils.formatEther(userBalance.toString()),
         totalAllowence: ethers.utils.formatEther(totalAllowence.toString()),
         tier1PassesOwned: tier1PassesOwned.toString(),
-        tier2PassesOwned: tier2PassesOwned.toString()
+        tier2PassesOwned: tier2PassesOwned.toString(),
       });
     } else {
       // Metamask not found
@@ -166,7 +174,7 @@ function App() {
       <div>
         <ToastContainer />
       </div>
-      <UserInfo walletAddress={userData.userAddress} totalAllowence={userData.totalAllowence} totalBalance={userData.userBalance} tier1PassesOwned={userData.tier1PassesOwned} tier2PassesOwned={userData.tier2PassesOwned}/>
+      <UserInfo walletAddress={userData.userAddress} currentNetwork={userData.currentNetwork} currentBalance={userData.currentBalance} totalAllowence={userData.totalAllowence} totalBalance={userData.userBalance} tier1PassesOwned={userData.tier1PassesOwned} tier2PassesOwned={userData.tier2PassesOwned}/>
       <Card itemName="Tier 1 Pass" price={tier1Price} imageUrl={"https://assets.playgroundai.com/27866d57-e6f8-471e-9acc-eb77aa669c97.jpg"} handlePurchase={event => handlePurchaseForTier(1)} quantity={quantities[0]} setQuantity={(quantity) => setQuantities([quantity, quantities[1]])}/>
       <Card itemName="Tier 2 Pass" price={tier2Price} imageUrl={"https://assets.playgroundai.com/16d0a622-bc92-4a38-aaa2-1e9787acaa3b.jpg"} handlePurchase={event => handlePurchaseForTier(2)} quantity={quantities[1]} setQuantity={(quantity) => setQuantities([quantities[0], quantity])}/>
     </div>

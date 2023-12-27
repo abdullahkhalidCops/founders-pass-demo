@@ -31,12 +31,14 @@ export const Card = ({ itemName, price, imageUrl, handlePurchase, quantity, setQ
   );
 };
 
-export const UserInfo = ({ walletAddress, totalAllowence, totalBalance, tier1PassesOwned, tier2PassesOwned }) => {
+export const UserInfo = ({ walletAddress, currentNetwork, currentBalance, totalAllowence, totalBalance, tier1PassesOwned, tier2PassesOwned }) => {
   return (
     <div className="card-container">
       <div className="card">
         <h2>User Info</h2>
         <p>Wallet Address: {walletAddress}</p>
+        <p>Network: {currentNetwork}</p>
+        <p>Balance: {currentBalance} {currentNetwork}</p>
         <p>Balance: {totalBalance} USDT</p>
         <p>Total Approved Allownece : {totalAllowence} USDT</p>
         <p>Tier 1 Owned Passes: {tier1PassesOwned}</p>
