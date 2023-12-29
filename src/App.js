@@ -164,6 +164,18 @@ function App() {
   //   }
   // };
 
+  // const disconnectWallet = async () => {
+  //   if (window.ethereum) {
+  //      try {
+  //        await window.ethereum.request({
+  //          method: 'wallet_disconnect',
+  //          params: [],
+  //        });
+  //      } catch (err) {
+  //        console.log('Error in disconnecting wallet:', err);
+  //      }
+  //   }
+  //  };
   useEffect(() => {
     populateUserData();
  }, [userData]);
@@ -174,6 +186,7 @@ function App() {
       <div>
         <ToastContainer />
       </div>
+      {/* <button onClick={disconnectWallet}>Disconnect Wallet</button> */}
       <UserInfo walletAddress={userData.userAddress} currentNetwork={userData.currentNetwork} currentBalance={userData.currentBalance} totalAllowence={userData.totalAllowence} totalBalance={userData.userBalance} tier1PassesOwned={userData.tier1PassesOwned} tier2PassesOwned={userData.tier2PassesOwned}/>
       <Card itemName="Tier 1 Pass" price={tier1Price} imageUrl={"https://assets.playgroundai.com/27866d57-e6f8-471e-9acc-eb77aa669c97.jpg"} handlePurchase={event => handlePurchaseForTier(1)} quantity={quantities[0]} setQuantity={(quantity) => setQuantities([quantity, quantities[1]])}/>
       <Card itemName="Tier 2 Pass" price={tier2Price} imageUrl={"https://assets.playgroundai.com/16d0a622-bc92-4a38-aaa2-1e9787acaa3b.jpg"} handlePurchase={event => handlePurchaseForTier(2)} quantity={quantities[1]} setQuantity={(quantity) => setQuantities([quantities[0], quantity])}/>
